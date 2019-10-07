@@ -14,11 +14,14 @@ public class ProductNameValidationRule implements ProductValidationRule {
     @Override
     public void validate(Product product) {
         checkNotNull(product);
-        if (product.getName().length() < 3) {
+        int minNameLength = 3;
+        int maxNameLength = 32;
+
+        if (product.getName().length() < minNameLength) {
             throw new ProductValidationException("Product name length must not be smaller than 3.");
         }
 
-        if (product.getName().length() > 32) {
+        if (product.getName().length() > maxNameLength) {
             throw new ProductValidationException("Product name length must not be larger than 32.");
         }
 

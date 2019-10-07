@@ -23,13 +23,11 @@ public class ProductRepository {
     }
 
     public boolean existsByName(String providedName) {
-        boolean isFound = false;
         for (Product product : productRepository.values()) {
             if (product.getName().equals(providedName)) {
-                isFound = true;
-                break;
+                return true;
             }
         }
-        return isFound;
+        return false;
     }
 }
