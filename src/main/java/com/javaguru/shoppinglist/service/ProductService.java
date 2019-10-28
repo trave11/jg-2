@@ -3,7 +3,7 @@ package com.javaguru.shoppinglist.service;
 import com.javaguru.shoppinglist.domain.Category;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductRepository;
-import com.javaguru.shoppinglist.service.validation.ProductValidationException;
+import com.javaguru.shoppinglist.service.validation.rules.ProductValidationException;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
 import java.math.BigDecimal;
