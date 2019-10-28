@@ -65,7 +65,6 @@ public class ProductNameValidationRuleTest {
         victim.validate(testProduct);
         verify(victim).checkNotNull(productCaptor.capture());
         verify(repository).existsByName(testProduct.getName());
-        verify(victim).checkNotNull(testProduct);
 
         Product captorResult = productCaptor.getValue();
         assertEquals(captorResult, testProduct);
@@ -79,7 +78,6 @@ public class ProductNameValidationRuleTest {
         victim.validate(testProduct);
         verify(victim).checkNotNull(testProduct);
         verify(repository).existsByName(testProduct.getName());
-        verify(victim).checkNotNull(testProduct);
     }
 
     private Product product(String name) {

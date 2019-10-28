@@ -6,12 +6,17 @@ import com.javaguru.shoppinglist.repository.ProductRepository;
 import com.javaguru.shoppinglist.service.validation.rules.ProductValidationException;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 
+@Service
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductValidationService productValidationService;
 
+    @Autowired
     public ProductService(ProductRepository productRepository, ProductValidationService productValidationService) {
         this.productRepository = productRepository;
         this.productValidationService = productValidationService;
