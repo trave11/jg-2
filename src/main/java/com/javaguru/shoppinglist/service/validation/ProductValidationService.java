@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductValidationService {
-    private final ValidationRulesSet validationRules;
+    private final ValidationRules validationRules;
 
     @Autowired
-    public ProductValidationService(ValidationRulesSet validationRules) {
+    public ProductValidationService(ValidationRules validationRules) {
         this.validationRules = validationRules;
     }
 

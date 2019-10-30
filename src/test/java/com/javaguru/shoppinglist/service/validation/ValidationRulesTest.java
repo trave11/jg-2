@@ -13,12 +13,12 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ValidationRulesSetTest {
+public class ValidationRulesTest {
 
     @Mock
     private ProductRepository repository;
 
-    private ValidationRulesSet victim = new ValidationRulesSet(repository);
+    private ValidationRules victim = new ValidationRules(repository);
 
     @Test
     public void shouldReturnValidationRulesSet() {

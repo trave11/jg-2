@@ -38,7 +38,7 @@ public class ProductValidationServiceTest {
     private ProductNameValidationRule nameRule;
 
     @Mock
-    private ValidationRulesSet rulesSet;
+    private ValidationRules rulesSet;
 
     @InjectMocks
     private ProductValidationService victim;

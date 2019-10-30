@@ -13,11 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-class ValidationRulesSet {
+class ValidationRules {
     private final Set<ProductValidationRule> validationRules = new HashSet<>();
 
     @Autowired
-    ValidationRulesSet(ProductRepository productRepository) {
+    ValidationRules(ProductRepository productRepository) {
         validationRules.add(new ProductNameValidationRule(productRepository));
         validationRules.add(new ProductPriceValidationRule());
         validationRules.add(new ProductDiscountValidationRule());
