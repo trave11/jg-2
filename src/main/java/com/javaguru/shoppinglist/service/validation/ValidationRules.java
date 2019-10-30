@@ -6,13 +6,18 @@ import com.javaguru.shoppinglist.service.validation.rules.ProductNameValidationR
 import com.javaguru.shoppinglist.service.validation.rules.ProductPriceValidationRule;
 import com.javaguru.shoppinglist.service.validation.rules.ProductValidationRule;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class ValidationRulesSet {
+@Component
+class ValidationRules {
     private final Set<ProductValidationRule> validationRules = new HashSet<>();
 
-    public ValidationRulesSet(ProductRepository productRepository) {
+    @Autowired
+    ValidationRules(ProductRepository productRepository) {
         validationRules.add(new ProductNameValidationRule(productRepository));
         validationRules.add(new ProductPriceValidationRule());
         validationRules.add(new ProductDiscountValidationRule());

@@ -2,10 +2,16 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 
-public class ProductValidationService {
-    private final ValidationRulesSet validationRules;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-    public ProductValidationService(ValidationRulesSet validationRules) {
+
+@Service
+public class ProductValidationService {
+    private final ValidationRules validationRules;
+
+    @Autowired
+    public ProductValidationService(ValidationRules validationRules) {
         this.validationRules = validationRules;
     }
 
