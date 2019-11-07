@@ -18,8 +18,9 @@ import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.times;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +45,7 @@ public class ProductServiceTest {
 
     @Test
     public void shouldFindProduct() {
-        when(repository.getProduct(10L)).thenReturn(createTestProduct());
+        when(repository.getProduct(10L)).thenReturn(Optional.of(createTestProduct()));
         Product actualResult = victim.findProductById(10L);
         Product expectedResult = createTestProduct();
         assertThat(expectedResult).isEqualTo(actualResult);
@@ -61,12 +62,11 @@ public class ProductServiceTest {
 
     @Test
     public void shouldCreateProduct() {
-        when(repository.getProductIdSequence()).thenReturn(10L);
 
+        when(repository.addProduct(any(Product.class))).thenReturn(10L);
         Product actualResult = victim.createProduct("Test name", "Test description", Category.FOOD, new BigDecimal(70), new BigDecimal(20));
         Product expectedResult = createTestProduct();
 
-        verify(repository, times(1)).getProductIdSequence();
         verify(validationService).validate(productCaptor.capture());
         verify(repository).addProduct(productCaptor.capture());
         List<Product> captorResult = productCaptor.getAllValues();

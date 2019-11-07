@@ -24,22 +24,19 @@ public class ProductService {
 
     public Product createProduct(String name, String description, Category category, BigDecimal price, BigDecimal discount) {
         Product product = new Product();
-        product.setId(productRepository.getProductIdSequence());
         product.setName(name);
         product.setCategory(category);
         product.setPrice(price);
         product.setDiscount(discount);
         product.setDescription(description);
         productValidationService.validate(product);
-        productRepository.addProduct(product);
+        Long productId = productRepository.addProduct(product);
+        product.setId(productId);
         return product;
     }
 
     public Product findProductById(Long id) {
-        Product product = productRepository.getProduct(id);
-        if (product == null) {
-            throw new ProductValidationException("Product was not found!");
-        }
-        return product;
+        return productRepository.getProduct(id).orElseThrow(() ->
+                new ProductValidationException("Product was not found!"));
     }
 }

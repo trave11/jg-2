@@ -32,8 +32,20 @@ public class Product {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setName(String name) {
