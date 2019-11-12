@@ -3,6 +3,7 @@ package com.javaguru.shoppinglist.repository;
 import com.javaguru.shoppinglist.domain.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -15,15 +16,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+@Profile("jdbc")
+public class ProductRepositoryJdbc implements RepositoryInterface {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ProductRepository(JdbcTemplate jdbcTemplate) {
+    public ProductRepositoryJdbc(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Override
     public Optional<Product> getProduct(Long productId) {
         String query = "select * from products where id=?";
 
@@ -35,6 +38,7 @@ public class ProductRepository {
         return Optional.empty();
     }
 
+    @Override
     public Long addProduct(Product product) {
         String query = "insert into products (name, description, category, price, discount) values (?, ?, ?, ?, ?)";
 
@@ -52,6 +56,7 @@ public class ProductRepository {
         return keyHolder.getKey().longValue();
     }
 
+    @Override
     public boolean existsByName(String providedName) {
         String query = "select * from products where name=?";
         List<Product> products = jdbcTemplate.query(query, new BeanPropertyRowMapper(Product.class), providedName);

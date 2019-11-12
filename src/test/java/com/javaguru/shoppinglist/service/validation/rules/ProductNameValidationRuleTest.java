@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist.service.validation.rules;
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ProductRepository;
+import com.javaguru.shoppinglist.repository.RepositoryInterface;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 public class ProductNameValidationRuleTest {
 
     @Mock
-    private ProductRepository repository;
+    private RepositoryInterface repository;
 
     @Spy
     @InjectMocks
