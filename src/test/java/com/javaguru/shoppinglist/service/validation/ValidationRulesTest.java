@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation;
 
-import com.javaguru.shoppinglist.repository.ProductRepository;
+import com.javaguru.shoppinglist.repository.RepositoryInterface;
 import com.javaguru.shoppinglist.service.validation.rules.ProductDiscountValidationRule;
 import com.javaguru.shoppinglist.service.validation.rules.ProductNameValidationRule;
 import com.javaguru.shoppinglist.service.validation.rules.ProductPriceValidationRule;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ValidationRulesTest {
 
     @Mock
-    private ProductRepository repository;
+    private RepositoryInterface repository;
 
     private ValidationRules victim = new ValidationRules(repository);
 

@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation;
 
-import com.javaguru.shoppinglist.repository.ProductRepository;
+import com.javaguru.shoppinglist.repository.RepositoryInterface;
 import com.javaguru.shoppinglist.service.validation.rules.ProductDiscountValidationRule;
 import com.javaguru.shoppinglist.service.validation.rules.ProductNameValidationRule;
 import com.javaguru.shoppinglist.service.validation.rules.ProductPriceValidationRule;
@@ -17,7 +17,7 @@ class ValidationRules {
     private final Set<ProductValidationRule> validationRules = new HashSet<>();
 
     @Autowired
-    ValidationRules(ProductRepository productRepository) {
+    ValidationRules(RepositoryInterface productRepository) {
         validationRules.add(new ProductNameValidationRule(productRepository));
         validationRules.add(new ProductPriceValidationRule());
         validationRules.add(new ProductDiscountValidationRule());
