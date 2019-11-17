@@ -32,13 +32,13 @@ public class ProductService {
         product.setDiscount(discount);
         product.setDescription(description);
         productValidationService.validate(product);
-        Long productId = productRepository.addProduct(product);
+        Long productId = productRepository.save(product);
         product.setId(productId);
         return product;
     }
 
     public Product findProductById(Long id) {
-        return productRepository.getProduct(id).orElseThrow(() ->
+        return productRepository.findProduct(id).orElseThrow(() ->
                 new ProductValidationException("Product was not found!"));
     }
 }

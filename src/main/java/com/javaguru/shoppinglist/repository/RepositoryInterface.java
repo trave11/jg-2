@@ -5,9 +5,9 @@ import com.javaguru.shoppinglist.domain.Product;
 import java.util.Optional;
 
 public interface RepositoryInterface {
-    Optional<Product> getProduct(Long productId);
+    Optional<Product> findProduct(Long productId);
 
-    Long addProduct(Product product);
+    Long save(Product product);
 
     boolean existsByName(String providedName);
 }

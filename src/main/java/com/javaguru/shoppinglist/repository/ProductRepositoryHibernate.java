@@ -24,13 +24,13 @@ public class ProductRepositoryHibernate implements RepositoryInterface {
     }
 
     @Override
-    public Optional<Product> getProduct(Long productId) {
+    public Optional<Product> findProduct(Long productId) {
         Product product = (Product) sessionFactory.getCurrentSession().createCriteria(Product.class).add(Restrictions.eq("id", productId)).uniqueResult();
         return Optional.ofNullable(product);
     }
 
     @Override
-    public Long addProduct(Product product) {
+    public Long save(Product product) {
         return (Long) sessionFactory.getCurrentSession().save(product);
 
     }

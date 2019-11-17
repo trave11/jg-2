@@ -45,7 +45,7 @@ public class ProductServiceTest {
 
     @Test
     public void shouldFindProduct() {
-        when(repository.getProduct(10L)).thenReturn(Optional.of(createTestProduct()));
+        when(repository.findProduct(10L)).thenReturn(Optional.of(createTestProduct()));
         Product actualResult = victim.findProductById(10L);
         Product expectedResult = createTestProduct();
         assertThat(expectedResult).isEqualTo(actualResult);
@@ -63,12 +63,12 @@ public class ProductServiceTest {
     @Test
     public void shouldCreateProduct() {
 
-        when(repository.addProduct(any(Product.class))).thenReturn(10L);
+        when(repository.save(any(Product.class))).thenReturn(10L);
         Product actualResult = victim.createProduct("Test name", "Test description", Category.FOOD, new BigDecimal(70), new BigDecimal(20));
         Product expectedResult = createTestProduct();
 
         verify(validationService).validate(productCaptor.capture());
-        verify(repository).addProduct(productCaptor.capture());
+        verify(repository).save(productCaptor.capture());
         List<Product> captorResult = productCaptor.getAllValues();
 
         assertThat(captorResult).containsOnly(expectedResult);

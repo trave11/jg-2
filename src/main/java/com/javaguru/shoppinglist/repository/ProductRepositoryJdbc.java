@@ -27,7 +27,7 @@ public class ProductRepositoryJdbc implements RepositoryInterface {
     }
 
     @Override
-    public Optional<Product> getProduct(Long productId) {
+    public Optional<Product> findProduct(Long productId) {
         String query = "select * from products where id=?";
 
         List<Product> products = jdbcTemplate.query(query, new BeanPropertyRowMapper(Product.class), productId);
@@ -39,7 +39,7 @@ public class ProductRepositoryJdbc implements RepositoryInterface {
     }
 
     @Override
-    public Long addProduct(Product product) {
+    public Long save(Product product) {
         String query = "insert into products (name, description, category, price, discount) values (?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
