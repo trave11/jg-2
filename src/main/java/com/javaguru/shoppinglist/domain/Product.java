@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "price")
@@ -36,6 +37,9 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "cart_id")
+    private Long cartId;
 
     public BigDecimal getDiscount() {
         return discount;
@@ -94,6 +98,7 @@ public class Product {
                 ", category=" + category +
                 ", discount=" + discount +
                 ", description='" + description + '\'' +
+                ", cartId=" + cartId +
                 '}';
     }
 
@@ -107,11 +112,12 @@ public class Product {
                 Objects.equals(price, product.price) &&
                 category == product.category &&
                 Objects.equals(discount, product.discount) &&
-                Objects.equals(description, product.description);
+                Objects.equals(description, product.description) &&
+                Objects.equals(cartId, product.cartId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, category, discount, description);
+        return Objects.hash(id, name, price, category, discount, description, cartId);
     }
 }

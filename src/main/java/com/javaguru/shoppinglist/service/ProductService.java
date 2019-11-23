@@ -37,6 +37,7 @@ public class ProductService {
         return product;
     }
 
+    @Transactional
     public Product findProductById(Long id) {
         return productRepository.findProduct(id).orElseThrow(() ->
                 new ProductValidationException("Product was not found!"));
