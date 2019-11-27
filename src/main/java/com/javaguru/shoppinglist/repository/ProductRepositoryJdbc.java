@@ -63,4 +63,19 @@ public class ProductRepositoryJdbc implements RepositoryInterface {
 
         return !products.isEmpty();
     }
+
+    @Override
+    public void delete(Product product) {
+
+    }
+
+    @Override
+    public void update(Product product) {
+
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return null;
+    }
 }

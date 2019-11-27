@@ -1,6 +1,5 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.domain.Category;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.RepositoryInterface;
 import com.javaguru.shoppinglist.service.validation.rules.ProductValidationException;
@@ -10,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.util.List;
+
 
 @Service
 public class ProductService {
@@ -24,13 +24,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Product createProduct(String name, String description, Category category, BigDecimal price, BigDecimal discount) {
-        Product product = new Product();
-        product.setName(name);
-        product.setCategory(category);
-        product.setPrice(price);
-        product.setDiscount(discount);
-        product.setDescription(description);
+    public Product createProduct(Product product) {
         productValidationService.validate(product);
         Long productId = productRepository.save(product);
         product.setId(productId);
@@ -41,5 +35,21 @@ public class ProductService {
     public Product findProductById(Long id) {
         return productRepository.findProduct(id).orElseThrow(() ->
                 new ProductValidationException("Product was not found!"));
+    }
+
+    public void deleteProductByID(Long id) {
+        Product product = findProductById(id);
+        productRepository.delete(product);
+    }
+
+    @Transactional
+    public void updateProduct(Product updatedProduct) {
+        productValidationService.validate(updatedProduct);
+        productRepository.update(updatedProduct);
+    }
+
+    @Transactional
+    public List<Product> getAllProducts() {
+        return productRepository.getAll();
     }
 }

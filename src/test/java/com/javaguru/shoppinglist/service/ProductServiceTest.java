@@ -6,6 +6,7 @@ import com.javaguru.shoppinglist.repository.RepositoryInterface;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 import com.javaguru.shoppinglist.service.validation.rules.ProductValidationException;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,9 +63,8 @@ public class ProductServiceTest {
 
     @Test
     public void shouldCreateProduct() {
-
         when(repository.save(any(Product.class))).thenReturn(10L);
-        Product actualResult = victim.createProduct("Test name", "Test description", Category.FOOD, new BigDecimal(70), new BigDecimal(20));
+        Product actualResult = victim.createProduct(createTestProduct());
         Product expectedResult = createTestProduct();
 
         verify(validationService).validate(productCaptor.capture());
