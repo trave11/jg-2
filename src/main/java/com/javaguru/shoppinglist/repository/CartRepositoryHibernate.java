@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -38,5 +39,10 @@ public class CartRepositoryHibernate {
 
     public void remove(Cart cart) {
         this.sessionFactory.getCurrentSession().delete(cart);
+    }
+
+    public List<Cart> getAll() {
+        return sessionFactory.getCurrentSession().createCriteria(Cart.class).list();
+
     }
 }

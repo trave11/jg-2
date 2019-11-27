@@ -4,15 +4,17 @@ import com.javaguru.shoppinglist.domain.Cart;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.CartRepositoryHibernate;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-@Component
+@Service
 public class CartService {
     private final CartRepositoryHibernate cartRepository;
     private final ProductService productService;
@@ -24,26 +26,21 @@ public class CartService {
     }
 
     @Transactional
-    public Cart createCart(String name) {
-        Cart cart = new Cart();
-        cart.setName(name);
+    public Cart createCart(Cart cart) {
         Long cartId = cartRepository.save(cart);
         cart.setId(cartId);
         return cart;
     }
 
     @Transactional
-    public Cart findCartById(Long cartId) {
-        return cartRepository.findCartById(cartId).orElseThrow(() ->
-                new NoSuchElementException("The provided cart was not found"));
+    public void updateCart(Cart cart) {
+        cartRepository.update(cart);
     }
 
     @Transactional
-    public void addProductToCart(Long productId, Long cartId) {
-        Product product = productService.findProductById(productId);
-        Cart cart = findCartById(cartId);
-        cart.getProducts().add(product);
-        cartRepository.update(cart);
+    public Cart findCartById(Long cartId) {
+        return cartRepository.findCartById(cartId).orElseThrow(() ->
+                new NoSuchElementException("The provided cart was not found!"));
     }
 
     @Transactional
@@ -53,7 +50,7 @@ public class CartService {
     }
 
     @Transactional
-    public Set<Product> getCartProducts(Long cartId) {
+    private Set<Product> getCartProducts(Long cartId) {
         return findCartById(cartId).getProducts();
     }
 
@@ -61,5 +58,17 @@ public class CartService {
     public BigDecimal getCartProductsTotalCost(Long cartId) {
         Set<Product> products = getCartProducts(cartId);
         return products.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Transactional
+    public void addProductToCart(Long cartId, Long productId) {
+        Cart cart = findCartById(cartId);
+        Product product = productService.findProductById(productId);
+        cart.getProducts().add(product);
+        cartRepository.update(cart);
+    }
+
+    public List<Cart> getAllCarts() {
+        return cartRepository.getAll();
     }
 }
